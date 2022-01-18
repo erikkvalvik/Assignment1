@@ -6,11 +6,22 @@ namespace Assignment1
     {
         static void Main(string[] args)
         {
-            Character brute = new Character();
-            Console.WriteLine($"name: {brute.name} race: {brute.race} class: {brute.characterClass}");
+            
             Character warrior = new Character("Brutus", "Orc", "Warrior");
-            Console.WriteLine($"name: {warrior.name} race: {warrior.race}  class: {warrior.characterClass}");
-            Console.WriteLine($"{warrior.name}'s attributes.. Strength: {warrior.attributes[0]}. Dexterity: {warrior.attributes[1]}. Intelligence: {warrior.attributes[2]}");
+            Character mage = new Character("Leo", "Human", "Mage");
+            Character ranger = new Character("Janna", "Elf", "Ranger");
+            Character rogue = new Character("Popo", "Dwarf", "Rogue");
+            printClassDetails(warrior);
+            printClassDetails(mage);
+            printClassDetails(ranger);
+            printClassDetails(rogue);
+            
+        }
+
+        public static void printClassDetails(Character charName)
+        {
+            Console.WriteLine($"name: {charName.name} race: {charName.race}  class: {charName.characterClass}");
+            Console.WriteLine($"{charName.name}'s attributes.. Strength: {charName.attributes[0]}. Dexterity: {charName.attributes[1]}. Intelligence: {charName.attributes[2]}");
         }
     }
 }

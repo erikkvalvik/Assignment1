@@ -8,8 +8,8 @@ namespace Assignment1
 {
     public class Character
     {
-        public string name;
-        public string race;
+        public string name { get; set; }
+        public string race { get; set; }
         public string characterClass;
         public int[] attributes = new int[] { 1, 1, 1}; // attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
 
@@ -26,12 +26,30 @@ namespace Assignment1
             this.name = name;
             this.race = race;
             this.characterClass = characterClass;
-            if(characterClass == "Warrior")
+            switch (characterClass)
             {
-                attributes[0] += 4;
-                attributes[1] += 1;
+                case "Warrior":
+                    attributes[0] += 4;
+                    attributes[1] += 1;
+                    break;
+                case "Mage":
+                    attributes[2] += 7;
+                    break;
+                case "Ranger":
+                    attributes[1] += 6;
+                    break;
+                case "Rogue":
+                    attributes[0] += 1;
+                    attributes[1] += 5;
+                    break;
             }
             Console.WriteLine("A character has been created");
+        }
+
+        //methods
+        public static void LevelUp()
+        {
+            
         }
 
     }
