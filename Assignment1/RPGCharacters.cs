@@ -15,6 +15,10 @@ namespace Assignment1
             printClassDetails(mage);
             printClassDetails(ranger);
             printClassDetails(rogue);
+            rogue.LevelUp(1);
+            warrior.LevelUp(2);
+            mage.LevelUp(3);
+            ranger.LevelUp(4);
             
         }
 

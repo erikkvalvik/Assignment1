@@ -47,9 +47,33 @@ namespace Assignment1
         }
 
         //methods
-        public static void LevelUp()
+        public void LevelUp(int amountOfLevels)
         {
-            
+            switch (characterClass)
+            {
+                case "Warrior":
+                    attributes[0] += 3; //strength 
+                    attributes[1] += 2; //dexterity
+                    attributes[2] += 1; //intelligence
+                    break;
+                case "Mage":
+                    attributes[0] += 1;
+                    attributes[1] += 1;
+                    attributes[2] += 5;
+                    break;
+                case "Ranger":
+                    attributes[0] += 1;
+                    attributes[1] += 5;
+                    attributes[2] += 1;
+                    break;
+                case "Rogue":
+                    attributes[0] += 1;
+                    attributes[1] += 4;
+                    attributes[2] += 1;
+                    break;
+            }
+            Console.WriteLine($"{name} just leveled up {amountOfLevels} levels \n " +
+                              $"strength: {attributes[0]} dexterity: {attributes[1]} intelligence: {attributes[2]}");
         }
 
     }
