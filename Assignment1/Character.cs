@@ -8,73 +8,70 @@ namespace Assignment1
 {
     public class Character
     {
-        public string name { get; set; }
-        public string race { get; set; }
-        public string characterClass;
-        public int[] attributes = new int[] { 1, 1, 1}; // attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
+        public string Name { get; set; }
+        public string Race { get; set; }
+        
+        public CharacterClass characterClass;
+        public EquipmentSlots headArmor;
+        public EquipmentSlots bodyArmor;
+        public EquipmentSlots legArmor;
+        public EquipmentSlots Weapon;
+        
+        public struct Attributes
+        {
+            public int Strength;
+            public int Dexterity;
+            public int Intelligence;
+
+            public Attributes(int strength, int dexterity, int intelligence)
+            {
+                Strength = strength;
+                Dexterity = dexterity;
+                Intelligence = intelligence;
+            }
+        }
+        public enum CharacterClass
+        {
+            Mage,
+            Ranger,
+            Rogue,
+            Warrior
+        }
+        public enum EquipmentSlots
+        {
+            Head,
+            Body,
+            Legs,
+            Weapon
+        }
 
 
         public Character()
         {
-            name = "Unnamed";
-            race = "Human";
-            characterClass = "None";
+            Name = "Unnamed";
+            Race = "Human";
+            characterClass = CharacterClass.Warrior;
             
         }
-        public Character(string name, string race, string characterClass)
+        public Character(string name, string race, CharacterClass characterClass)
         {
-            this.name = name;
-            this.race = race;
+            
+            this.Name = name;
+            this.Race = race;
             this.characterClass = characterClass;
-            switch (characterClass)
-            {
-                case "Warrior":
-                    attributes[0] += 4;
-                    attributes[1] += 1;
-                    break;
-                case "Mage":
-                    attributes[2] += 7;
-                    break;
-                case "Ranger":
-                    attributes[1] += 6;
-                    break;
-                case "Rogue":
-                    attributes[0] += 1;
-                    attributes[1] += 5;
-                    break;
-            }
             Console.WriteLine("A character has been created");
         }
 
         //methods
-        public void LevelUp(int amountOfLevels)
+
+        public void Items(Items item)
         {
-            switch (characterClass)
-            {
-                case "Warrior":
-                    attributes[0] += 3; //strength 
-                    attributes[1] += 2; //dexterity
-                    attributes[2] += 1; //intelligence
-                    break;
-                case "Mage":
-                    attributes[0] += 1;
-                    attributes[1] += 1;
-                    attributes[2] += 5;
-                    break;
-                case "Ranger":
-                    attributes[0] += 1;
-                    attributes[1] += 5;
-                    attributes[2] += 1;
-                    break;
-                case "Rogue":
-                    attributes[0] += 1;
-                    attributes[1] += 4;
-                    attributes[2] += 1;
-                    break;
-            }
-            Console.WriteLine($"{name} just leveled up {amountOfLevels} levels \n " +
-                              $"strength: {attributes[0]} dexterity: {attributes[1]} intelligence: {attributes[2]}");
+
         }
+        
+
+
+
 
     }
 }
