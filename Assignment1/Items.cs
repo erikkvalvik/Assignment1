@@ -8,8 +8,8 @@ namespace Assignment1
 {
     public class Items
     {
-        private string name;
-        private int itemLevel;
+        public string Name;
+        public int itemLevel;
         //private Character character = null;
         public bool isWeapon;
         public enum ItemSlot
@@ -20,19 +20,16 @@ namespace Assignment1
             Weapon
 
         }
-        //public Items(Character obj)
-        //{
-        //    this.character = obj;
-        //}
+        
 
         public Items()
         {
-            name = "The emperor's new shoulderpads";
+            Name = "The emperor's new shoulderpads";
             itemLevel = 1;
         }
         public Items(string name, int level)
         {
-            this.name = name;
+            this.Name = name;
             this.itemLevel = level;
         }
         

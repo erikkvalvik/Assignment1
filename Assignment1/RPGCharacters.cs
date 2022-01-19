@@ -21,6 +21,11 @@ namespace Assignment1
             mage.PrintAttributes();
             mage.LevelUp();
             mage.PrintAttributes();
+            Armor armor1 = new Armor("Monkeys Chestplate", Armor.Material.Plate, 4, 0, 2, Items.ItemSlot.Body, 1);
+            warrior.EquipArmor(armor1);
+            warrior.PrintAttributes();
+            warrior.UnequipArmor(armor1);
+            warrior.PrintAttributes();
 
 
         }

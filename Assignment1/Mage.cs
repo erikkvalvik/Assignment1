@@ -11,7 +11,7 @@ namespace Assignment1
         
         //sets base attributes attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
         Attributes attributes = new Attributes(1, 1, 8);
-
+        ArmorType armorType = new ArmorType(true, false, false, false); //(Cloth, Leather, Mail, Plate)
         public Mage(string name, string race, CharacterClass characterClass)
         {
             this.Name = name;
@@ -21,10 +21,11 @@ namespace Assignment1
         }
         public void LevelUp()
         {
+            Level += 1;
             attributes.Strength += 1;
             attributes.Dexterity += 1;
             attributes.Intelligence += 5;
-            Console.WriteLine($"{Name} the {characterClass} just leveled up!");
+            Console.WriteLine($"{Name} the {characterClass} just leveled up! Current level: {Level}");
         }
         public void PrintAttributes()
         {

@@ -10,7 +10,8 @@ namespace Assignment1
     {
         public string Name { get; set; }
         public string Race { get; set; }
-        
+        public int Level;
+        public List<Items> equippedItems = new List<Items>();
         public CharacterClass characterClass;
         public EquipmentSlots headArmor;
         public EquipmentSlots bodyArmor;
@@ -30,6 +31,21 @@ namespace Assignment1
                 Intelligence = intelligence;
             }
         }
+        public struct ArmorType
+        {
+            public bool Cloth;
+            public bool Leather;
+            public bool Mail;
+            public bool Plate;
+
+            public ArmorType(bool cloth, bool leather, bool mail, bool plate)
+            {
+                Cloth = cloth;
+                Leather = leather;
+                Mail = mail;
+                Plate = plate;
+            }
+        }
         public enum CharacterClass
         {
             Mage,
@@ -37,12 +53,12 @@ namespace Assignment1
             Rogue,
             Warrior
         }
-        public enum EquipmentSlots
+        public struct EquipmentSlots
         {
-            Head,
-            Body,
-            Legs,
-            Weapon
+            public Items.ItemSlot Head;
+            public Items.ItemSlot Body;
+            public Items.ItemSlot Legs;
+            public Items.ItemSlot Weapon;
         }
 
 
@@ -50,6 +66,7 @@ namespace Assignment1
         {
             Name = "Unnamed";
             Race = "Human";
+            Level = 1;
             characterClass = CharacterClass.Warrior;
             
         }
@@ -58,6 +75,7 @@ namespace Assignment1
             
             this.Name = name;
             this.Race = race;
+            this.Level = 1;
             this.characterClass = characterClass;
             Console.WriteLine("A character has been created");
         }

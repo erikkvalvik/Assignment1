@@ -8,6 +8,11 @@ namespace Assignment1
 {
     interface IEquip
     {
-        public void Equip();
+        //Equips an armor item on a character
+        public void EquipArmor(Armor item);
+        public void UnequipArmor(Armor item);
+        //equips a weapon item on a character
+        public void EquipWeapon(Weapons item);
+        public void UnequipWeapon(Weapons item);
     }
 }
