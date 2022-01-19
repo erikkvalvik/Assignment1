@@ -28,14 +28,17 @@ namespace Assignment1
         //Generates default weapon
         public Weapons()
         {
+            itemLevel = 1;
             slot = ItemSlot.Weapon;
             weaponType = WeaponType.Sword;
             baseDamage = 1;
             attacksPerSecond = 1;
             
         }
-        public Weapons(WeaponType type, double bdmg, double aps)
+        public Weapons(string name, int itemlvl, WeaponType type, double bdmg, double aps)
         {
+            Name = name;
+            itemLevel = itemlvl;
             slot = ItemSlot.Weapon;
             weaponType = type;
             baseDamage = bdmg;

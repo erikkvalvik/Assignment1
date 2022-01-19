@@ -6,39 +6,37 @@ using System.Threading.Tasks;
 
 namespace Assignment1
 {
-    public class Warrior : Character, ILevelUp, IEquip
+    class Ranger: Character, IEquip, ILevelUp
     {
         //sets base attributes attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
-        Attributes attributes = new Attributes(5, 1, 1);
-        ArmorType armorMat = new ArmorType(false, false, true, true);
+        Attributes attributes = new Attributes(1, 7, 1);
+        ArmorType armorMat = new ArmorType(false, true, true, false);
         public int PrimaryAttribute;
         public Weapons EquippedWeapon;
         public bool IsWeaponEquipped;
 
-        public Warrior(string name, string race, CharacterClass characterClass)
+        public Ranger(string name, string race, CharacterClass characterClass)
         {
             IsWeaponEquipped = false;
             this.Name = name;
             this.Race = race;
             this.characterClass = characterClass;
-            usableWeapons.Add(Weapons.WeaponType.Axe);
-            usableWeapons.Add(Weapons.WeaponType.Hammer);
-            usableWeapons.Add(Weapons.WeaponType.Sword);
-            Console.WriteLine("A warrior has been created");
+            usableWeapons.Add(Weapons.WeaponType.Bow);
+            Console.WriteLine("A Ranger has been created");
         }
 
         //Should add specific armor item to an existing item slot.
         public void EquipArmor(Armor item)
         {
             //Checks if character is high enough level to equip item
-            if(item.itemLevel > this.Level)
+            if (item.itemLevel > this.Level)
             {
                 Console.WriteLine("You are not high enough level to equip this item");
                 return;
             }
             //Checks if armor type matches the characters class armor types. Adds items attributes to characters attributes,
             //adds armor item to equipped items list
-            if(item.armorType.ToString() == "Mail" || item.armorType.ToString() == "Plate")
+            if (item.armorType.ToString() == "Mail" || item.armorType.ToString() == "Leather")
             {
                 attributes.Strength += item.armorStrength;
                 attributes.Dexterity += item.armorDexterity;
@@ -46,14 +44,14 @@ namespace Assignment1
                 equippedItems.Add(item);
                 Console.WriteLine($"Equipped {item.Name} on {item.itemSlot}");
                 return;
-                
+
             }
             else
             {
                 Console.WriteLine("Can't use this type of armor");
             }
             return;
-            
+
         }
         //Should remove armor item from character and remove armor attributes from character attributes
         public void UnequipArmor(Armor item)
@@ -74,12 +72,13 @@ namespace Assignment1
         //Sets EquippedWeapon to chosen weapon. 
         public void EquipWeapon(Weapons item)
         {
-            if(item.itemLevel > Level)
+            if (item.itemLevel > Level)
             {
                 //Throw exception
                 return;
             }
-            if (usableWeapons.Contains(item.weaponType)){ 
+            if (usableWeapons.Contains(item.weaponType))
+            {
 
                 if (!IsWeaponEquipped)
                 {
@@ -96,7 +95,7 @@ namespace Assignment1
                 //Throw InvalidWeaponException
                 return;
             }
-            Console.WriteLine("Can't equip weapon");
+
         }
         //Checks if a weapon is equipped. Sets EquippedWeapon to null if a weapon is equipped.
         public void UnequipWeapon()
@@ -115,20 +114,19 @@ namespace Assignment1
             Console.WriteLine("No weapon to unequip");
             return;
         }
-        //Increases the level and attributes of the warrior class
+        //Increases the level and attributes of the ranger class
         public void LevelUp()
         {
             Level += 1;
-            attributes.Strength += 3;
-            attributes.Dexterity += 2;
+            attributes.Strength += 1;
+            attributes.Dexterity += 5;
             attributes.Intelligence += 1;
-            Console.WriteLine($"Warrior {this.Name} just leveled up! Current level: {Level}");
+            Console.WriteLine($"Ranger {this.Name} just leveled up! Current level: {Level}");
         }
 
         public void PrintAttributes()
         {
             Console.WriteLine($"{Name} the {characterClass} has {attributes.Strength} strength, {attributes.Dexterity} dexterity and {attributes.Intelligence} intelligence!");
         }
-
     }
 }
