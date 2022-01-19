@@ -11,7 +11,6 @@ namespace Assignment1
         //sets base attributes attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
         Attributes attributes = new Attributes(1, 7, 1);
         ArmorType armorMat = new ArmorType(false, true, true, false);
-        public int PrimaryAttribute;
         public Weapons EquippedWeapon;
         public bool IsWeaponEquipped;
 

@@ -12,7 +12,6 @@ namespace Assignment1
         //sets base attributes attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
         Attributes attributes = new Attributes(1, 1, 8);
         ArmorType armorMat = new ArmorType(true, false, false, false);
-        public int PrimaryAttribute;
         public Weapons EquippedWeapon;
         public bool IsWeaponEquipped;
 
@@ -131,3 +130,4 @@ namespace Assignment1
             Console.WriteLine($"{Name} the {characterClass} has {attributes.Strength} strength, {attributes.Dexterity} dexterity and {attributes.Intelligence} intelligence!");
         }
     }
+}

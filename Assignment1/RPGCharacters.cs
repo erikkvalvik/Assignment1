@@ -9,12 +9,12 @@ namespace Assignment1
             
             Warrior warrior = new Warrior("Brutus", "Orc", Character.CharacterClass.Warrior);
             Mage mage = new Mage("Leo", "Human", Character.CharacterClass.Mage);
-            Character ranger = new Character("Janna", "Elf", Character.CharacterClass.Ranger);
-            Character rogue = new Character("Popo", "Dwarf", Character.CharacterClass.Rogue);
-            printClassDetails(warrior);
-            printClassDetails(mage);
-            printClassDetails(ranger);
-            printClassDetails(rogue);
+            Rogue rogue = new Rogue("Rogue", "Human", Character.CharacterClass.Rogue);
+            Ranger ranger = new Ranger("Ranger", "Elf", Character.CharacterClass.Ranger);
+            PrintClassDetails(warrior);
+            PrintClassDetails(mage);
+            PrintClassDetails(ranger);
+            PrintClassDetails(rogue);
             warrior.PrintAttributes();
             warrior.LevelUp();
             warrior.PrintAttributes();
@@ -26,14 +26,19 @@ namespace Assignment1
             warrior.PrintAttributes();
             warrior.UnequipArmor(armor1);
             warrior.PrintAttributes();
-            warrior.EquippedWeapon.GetDPS();
+            
 
 
         }
 
-        public static void printClassDetails(Character charName)
+        public static void PrintClassDetails(Character charName)
         {
             Console.WriteLine($"name: {charName.Name} race: {charName.Race}  class: {charName.characterClass}");
+        }
+
+        public static void GenerateItems()
+        {
+
         }
     }
 }

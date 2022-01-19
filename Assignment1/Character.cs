@@ -11,6 +11,8 @@ namespace Assignment1
         public string Name { get; set; }
         public string Race { get; set; }
         public int Level;
+        public int PrimaryAttribute;
+        public double CharacterDamage;
         public List<Weapons.WeaponType> usableWeapons = new List<Weapons.WeaponType>();
         public List<Items> equippedItems = new List<Items>();
         public CharacterClass characterClass;

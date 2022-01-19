@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Assignment1
 {
-    public class Warrior : Character, ILevelUp, IEquip
+    public class Warrior : Character, ILevelUp, IEquip, ICalculateCharacterDamage
     {
         //sets base attributes attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
         Attributes attributes = new Attributes(5, 1, 1);
         ArmorType armorMat = new ArmorType(false, false, true, true);
-        public int PrimaryAttribute;
+        
         public Weapons EquippedWeapon;
         public bool IsWeaponEquipped;
 
@@ -96,7 +96,7 @@ namespace Assignment1
                 //Throw InvalidWeaponException
                 return;
             }
-            Console.WriteLine("Can't equip weapon");
+            
         }
         //Checks if a weapon is equipped. Sets EquippedWeapon to null if a weapon is equipped.
         public void UnequipWeapon()
@@ -123,6 +123,23 @@ namespace Assignment1
             attributes.Dexterity += 2;
             attributes.Intelligence += 1;
             Console.WriteLine($"Warrior {this.Name} just leveled up! Current level: {Level}");
+        }
+        //Gets the primary attribute for this class
+        public int GetPrimaryAttribute()
+        {
+            return attributes.Strength;
+        }
+        //Calculates the Character damage as described in Appendix B: 4.1) Total attributes and calculations
+        public double CalculateCharacterDamage()
+        {
+            if (IsWeaponEquipped)
+            {
+                return EquippedWeapon.GetDPS() * (1 + GetPrimaryAttribute() / 100);
+            }
+            else
+            {
+                return 1 + GetPrimaryAttribute() / 100;
+            }
         }
 
         public void PrintAttributes()
