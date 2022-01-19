@@ -13,6 +13,6 @@ namespace Assignment1
         public void UnequipArmor(Armor item);
         //equips a weapon item on a character
         public void EquipWeapon(Weapons item);
-        public void UnequipWeapon(Weapons item);
+        public void UnequipWeapon();
     }
 }

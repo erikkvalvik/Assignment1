@@ -26,6 +26,7 @@ namespace Assignment1
             warrior.PrintAttributes();
             warrior.UnequipArmor(armor1);
             warrior.PrintAttributes();
+            warrior.EquippedWeapon.GetDPS();
 
 
         }

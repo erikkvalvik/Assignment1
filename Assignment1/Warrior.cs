@@ -6,19 +6,24 @@ using System.Threading.Tasks;
 
 namespace Assignment1
 {
-    public class Warrior : Character, ILevelUp//, IEquip
+    public class Warrior : Character, ILevelUp, IEquip
     {
         //sets base attributes attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
         Attributes attributes = new Attributes(5, 1, 1);
         ArmorType armorMat = new ArmorType(false, false, true, true);
         public int PrimaryAttribute;
+        public Weapons EquippedWeapon;
+        public bool IsWeaponEquipped;
 
         public Warrior(string name, string race, CharacterClass characterClass)
         {
-
+            IsWeaponEquipped = false;
             this.Name = name;
             this.Race = race;
             this.characterClass = characterClass;
+            usableWeapons.Add(Weapons.WeaponType.Axe);
+            usableWeapons.Add(Weapons.WeaponType.Hammer);
+            usableWeapons.Add(Weapons.WeaponType.Sword);
             Console.WriteLine("A warrior has been created");
         }
 
@@ -63,6 +68,38 @@ namespace Assignment1
                 equippedItems.Remove(item);
                 Console.WriteLine($"Unequipped {item}");
             }
+            return;
+        }
+        public void EquipWeapon(Weapons item)
+        {
+            if (usableWeapons.Contains(item.weaponType)){ 
+
+                if (!IsWeaponEquipped)
+                {
+                    EquippedWeapon = item;
+                    IsWeaponEquipped = true;
+                    Console.WriteLine($"equipped {item.Name}");
+                    return;
+                }
+                Console.WriteLine("Weapon slot is full");
+                return;
+            }
+            Console.WriteLine("Can't equip weapon");
+        }
+        public void UnequipWeapon()
+        {
+            //if(EquippedWeapon == null)
+            //{
+            //    Console.WriteLine("No weapon equipped");
+            //    return;
+            //} unsure if necessary
+            if (IsWeaponEquipped)
+            {
+                EquippedWeapon = null;
+                IsWeaponEquipped = false;
+                return;
+            }
+            Console.WriteLine("No weapon to unequip");
             return;
         }
         //Increases the level and attributes of the warrior class

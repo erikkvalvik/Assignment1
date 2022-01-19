@@ -11,6 +11,7 @@ namespace Assignment1
         public string Name { get; set; }
         public string Race { get; set; }
         public int Level;
+        public List<Weapons.WeaponType> usableWeapons = new List<Weapons.WeaponType>();
         public List<Items> equippedItems = new List<Items>();
         public CharacterClass characterClass;
         public EquipmentSlots headArmor;
@@ -82,10 +83,7 @@ namespace Assignment1
 
         //methods
 
-        public void Items(Items item)
-        {
-
-        }
+        
         
 
 
