@@ -84,15 +84,11 @@ namespace Assignment1
             Console.WriteLine("A character has been created");
         }
 
-        //methods
-
         
-        
-
-
-
-
     }
+
+    //Custom Exceptions
+
     [Serializable]
     public class InvalidWeaponException: Exception
     {

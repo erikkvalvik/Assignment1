@@ -160,5 +160,62 @@ namespace Assignment1.Tests
             Assert.Equal(1.05, actual); // using 1*(1+(5/100)) sets Expected to be 1 for some reason.
 
         }
+        [Fact]
+        public void CalculateCharacterDamage_CalculateDamageWithValidWeapon_ShouldReturnSum()
+        {
+            //Arrange
+            Warrior testWarrior = new Warrior("Test Warrior", "Human", Character.CharacterClass.Warrior);
+            Weapons testAxe = new Weapons()
+            {
+                Name = "Common axe",
+                itemLevel = 1,
+                slot = Items.ItemSlot.Weapon,
+                weaponType = Weapons.WeaponType.Axe,
+                baseDamage = 7,
+                attacksPerSecond = 1.1
+            };
+            testWarrior.EquipWeapon(testAxe);
+            //Act
+            double actual = testWarrior.CalculateCharacterDamage();
+            double expected = (7 * 1.1) * (1 + 0.05); //Set as 0.05 as there is some issues with dividing doubles
+            //Assert
+            Assert.Equal(expected, actual); // (7*1.1)*(1+(5/100)) becomes 7,700000000000001 for some reason.
+
+        }
+        [Fact]
+        public void CalculateCharacterDamage_CalculateDamageWithValidWeaponAndArmor_ShouldReturnSum()
+        {
+            //Arrange
+            Warrior testWarrior = new Warrior("Test Warrior", "Human", Character.CharacterClass.Warrior);
+            Weapons testAxe = new Weapons()
+            {
+                Name = "Common axe",
+                itemLevel = 1,
+                slot = Items.ItemSlot.Weapon,
+                weaponType = Weapons.WeaponType.Axe,
+                baseDamage = 7,
+                attacksPerSecond = 1.1
+            };
+            Armor testArmor = new Armor()
+            {
+                Name = "Plate Armor",
+                itemLevel = 1,
+                armorType = Armor.Material.Plate,
+                armorStrength = 1,
+                armorDexterity = 0,
+                armorIntelligence = 0,
+                itemSlot = Items.ItemSlot.Body
+            };
+            testWarrior.EquipWeapon(testAxe);
+            testWarrior.EquipArmor(testArmor);
+            
+            //Act
+            double actual = testWarrior.CalculateCharacterDamage();
+            
+            double expected = (7 * 1.1) * (1 + 0.06);
+            //Assert
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
