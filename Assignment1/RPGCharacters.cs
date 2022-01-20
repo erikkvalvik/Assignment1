@@ -26,6 +26,7 @@ namespace Assignment1
             rogue.EquipWeapon(sword);
             rogue.LevelUp();
             rogue.LevelUp();
+            warrior.EquipArmor(plateChest);
 
             //Displaying character statistics
             rogue.DisplayStats();

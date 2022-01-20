@@ -27,7 +27,7 @@ namespace Assignment1
         }
 
         //Should add specific armor item to an existing item slot.
-        public void EquipArmor(Armor item)
+        public string EquipArmor(Armor item)
         {
             //Checks if character is high enough level to equip item. Should throw InvalidArmorException if not.
             if (item.itemLevel > this.Level)
@@ -36,21 +36,21 @@ namespace Assignment1
             }
             //Checks if armor type matches the characters class armor types. Adds items attributes to characters attributes,
             //adds armor item to equipped items list
-            if (item.armorType.ToString() == "Mail" || item.armorType.ToString() == "Leather")
+            if (item.armorType.ToString() == "Cloth")
             {
                 attributes.Strength += item.armorStrength;
                 attributes.Dexterity += item.armorDexterity;
                 attributes.Intelligence += item.armorIntelligence;
                 equippedItems.Add(item);
                 Console.WriteLine($"Equipped {item.Name} on {item.itemSlot}");
-                return;
+                return "New armor equipped!";
 
             }
             else
             {
                 throw new InvalidArmorException();
             }
-            return;
+
 
         }
         //Should remove armor item from character and remove armor attributes from character attributes
@@ -74,7 +74,7 @@ namespace Assignment1
         }
         //Checks if weapon is usable for this class. Checks if a weapon is already equipped. 
         //Sets EquippedWeapon to chosen weapon. 
-        public void EquipWeapon(Weapons item)
+        public string EquipWeapon(Weapons item)
         {
             if (item.itemLevel > Level)
             {
@@ -88,10 +88,10 @@ namespace Assignment1
                     EquippedWeapon = item;
                     IsWeaponEquipped = true;
                     Console.WriteLine($"equipped {item.Name}");
-                    return;
+                    return "New weapon equipped!";
                 }
                 Console.WriteLine("Weapon slot is full");
-                return;
+                throw new InvalidWeaponException();
             }
             else
             {
