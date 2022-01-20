@@ -23,35 +23,36 @@ namespace Assignment1
             this.characterClass = characterClass;
             usableWeapons.Add(Weapons.WeaponType.Staff);
             usableWeapons.Add(Weapons.WeaponType.Wand);
+            useableArmor.Add(Armor.Material.Cloth);
             Console.WriteLine("A Mage has been created");
         }
 
         //Should add specific armor item to an existing item slot.
         public string EquipArmor(Armor item)
         {
+            Console.WriteLine(item.armorType);
             //Checks if character is high enough level to equip item. Should throw InvalidArmorException if not.
-            if (item.itemLevel > this.Level)
+            if (item.itemLevel <= this.Level)
             {
-                throw new InvalidArmorException();
-            }
-            //Checks if armor type matches the characters class armor types. Adds items attributes to characters attributes,
-            //adds armor item to equipped items list
-            if (item.armorType.ToString() == "Cloth")
-            {
-                attributes.Strength += item.armorStrength;
-                attributes.Dexterity += item.armorDexterity;
-                attributes.Intelligence += item.armorIntelligence;
-                equippedItems.Add(item);
-                Console.WriteLine($"Equipped {item.Name} on {item.itemSlot}");
-                return "New armor equipped!";
+                //Checks if armor type matches the characters class armor types. Should throw InvalidArmorException if not.
+                //Adds items attributes to characters attributes,
+                //adds armor item to equipped items list
+                if (useableArmor.Contains(item.armorType))
+                {
+                    attributes.Strength += item.armorStrength;
+                    attributes.Dexterity += item.armorDexterity;
+                    attributes.Intelligence += item.armorIntelligence;
+                    equippedItems.Add(item);
+                    Console.WriteLine($"Equipped {item.Name} on {item.itemSlot}");
+                    return "New armor equipped!";
 
+                }
+                else
+                {
+                    throw new InvalidArmorException();
+                }
             }
-            else
-            {
-                throw new InvalidArmorException();
-            }
-
-
+            throw new InvalidArmorException();
         }
         //Should remove armor item from character and remove armor attributes from character attributes
         public void UnequipArmor(Armor item)
@@ -133,7 +134,7 @@ namespace Assignment1
         //Gets the primary attribute for this class
         public double GetPrimaryAttribute()
         {
-            return attributes.Dexterity;
+            return attributes.Intelligence;
         }
         //Calculates the Character damage as described in Appendix B: 4.1) Total attributes and calculations
         public double CalculateCharacterDamage()

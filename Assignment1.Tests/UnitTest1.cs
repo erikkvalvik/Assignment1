@@ -130,20 +130,35 @@ namespace Assignment1.Tests
         {
             //Arrange
             Warrior testWarrior = new Warrior("Test Warrior", "Human", Character.CharacterClass.Warrior);
-            Armor plateArmor = new Armor()
+            Armor testArmor = new Armor()
             {
-                Name = "Common plate body armor",
+                Name = "Plate Armor",
                 itemLevel = 1,
-                itemSlot = Items.ItemSlot.Body,
+                armorType = Armor.Material.Plate,
                 armorStrength = 1,
-                armorType = Armor.Material.Plate
+                armorDexterity = 0,
+                armorIntelligence = 0,
+                itemSlot = Items.ItemSlot.Body
             };
 
             //Act
-            string actual = testWarrior.EquipArmor(plateArmor);
+            string actual = testWarrior.EquipArmor(testArmor);
 
             //Assert
             Assert.Equal("New armor equipped!", actual);
+        }
+        [Fact]
+        public void CalculateCharacterDamage_CalculateDamageWithNoWeapon_ShouldReturnSum()
+        {
+            //Arrange
+            Warrior testWarrior = new Warrior("Test Warrior", "Human", Character.CharacterClass.Warrior);
+
+            //Act
+            double actual = testWarrior.CalculateCharacterDamage();
+            
+            //Assert
+            Assert.Equal(1.05, actual); // using 1*(1+(5/100)) sets Expected to be 1 for some reason.
+
         }
     }
 }

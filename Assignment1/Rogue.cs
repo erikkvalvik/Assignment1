@@ -22,35 +22,37 @@ namespace Assignment1
             this.characterClass = characterClass;
             usableWeapons.Add(Weapons.WeaponType.Dagger);
             usableWeapons.Add(Weapons.WeaponType.Sword);
+            useableArmor.Add(Armor.Material.Leather);
+            useableArmor.Add(Armor.Material.Mail);
             Console.WriteLine("A rogue has been created");
         }
 
         //Should add specific armor item to an existing item slot.
         public string EquipArmor(Armor item)
         {
+            Console.WriteLine(item.armorType);
             //Checks if character is high enough level to equip item. Should throw InvalidArmorException if not.
-            if (item.itemLevel > this.Level)
+            if (item.itemLevel <= this.Level)
             {
-                throw new InvalidArmorException();
-            }
-            //Checks if armor type matches the characters class armor types. Adds items attributes to characters attributes,
-            //adds armor item to equipped items list
-            if (item.armorType.ToString() == "Mail" || item.armorType.ToString() == "Leather")
-            {
-                attributes.Strength += item.armorStrength;
-                attributes.Dexterity += item.armorDexterity;
-                attributes.Intelligence += item.armorIntelligence;
-                equippedItems.Add(item);
-                Console.WriteLine($"Equipped {item.Name} on {item.itemSlot}");
-                return "New armor equipped!";
+                //Checks if armor type matches the characters class armor types. Should throw InvalidArmorException if not.
+                //Adds items attributes to characters attributes,
+                //adds armor item to equipped items list
+                if (useableArmor.Contains(item.armorType))
+                {
+                    attributes.Strength += item.armorStrength;
+                    attributes.Dexterity += item.armorDexterity;
+                    attributes.Intelligence += item.armorIntelligence;
+                    equippedItems.Add(item);
+                    Console.WriteLine($"Equipped {item.Name} on {item.itemSlot}");
+                    return "New armor equipped!";
 
+                }
+                else
+                {
+                    throw new InvalidArmorException();
+                }
             }
-            else
-            {
-                throw new InvalidArmorException();
-            }
-
-
+            throw new InvalidArmorException();
         }
         //Should remove armor item from character and remove armor attributes from character attributes
         public void UnequipArmor(Armor item)

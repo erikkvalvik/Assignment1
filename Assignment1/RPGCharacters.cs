@@ -26,7 +26,8 @@ namespace Assignment1
             rogue.EquipWeapon(sword);
             rogue.LevelUp();
             rogue.LevelUp();
-            warrior.EquipArmor(plateChest);
+            
+            Console.WriteLine("Expected " + 1 * (1 + (5 / 100)));
 
             //Displaying character statistics
             rogue.DisplayStats();
