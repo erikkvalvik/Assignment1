@@ -30,15 +30,14 @@ namespace Assignment1
         //Should add specific armor item to an existing item slot.
         public void EquipArmor(Armor item)
         {
-            //Checks if character is high enough level to equip item
-            if(item.itemLevel > this.Level)
+            //Checks if character is high enough level to equip item. Should throw InvalidArmorException if not.
+            if (item.itemLevel > this.Level)
             {
-                Console.WriteLine("You are not high enough level to equip this item");
-                return;
+                throw new InvalidArmorException();
             }
             //Checks if armor type matches the characters class armor types. Adds items attributes to characters attributes,
             //adds armor item to equipped items list
-            if(item.armorType.ToString() == "Mail" || item.armorType.ToString() == "Plate")
+            if (item.armorType.ToString() == "Mail" || item.armorType.ToString() == "Leather")
             {
                 attributes.Strength += item.armorStrength;
                 attributes.Dexterity += item.armorDexterity;
@@ -46,14 +45,14 @@ namespace Assignment1
                 equippedItems.Add(item);
                 Console.WriteLine($"Equipped {item.Name} on {item.itemSlot}");
                 return;
-                
+
             }
             else
             {
-                Console.WriteLine("Can't use this type of armor");
+                throw new InvalidArmorException();
             }
             return;
-            
+
         }
         //Should remove armor item from character and remove armor attributes from character attributes
         public void UnequipArmor(Armor item)
@@ -68,18 +67,22 @@ namespace Assignment1
                 equippedItems.Remove(item);
                 Console.WriteLine($"Unequipped {item}");
             }
+            else
+            {
+                throw new InvalidUnequipException();
+            }
             return;
         }
         //Checks if weapon is usable for this class. Checks if a weapon is already equipped. 
         //Sets EquippedWeapon to chosen weapon. 
         public void EquipWeapon(Weapons item)
         {
-            if(item.itemLevel > Level)
+            if (item.itemLevel > Level)
             {
-                //Throw exception
-                return;
+                throw new InvalidWeaponException();
             }
-            if (usableWeapons.Contains(item.weaponType)){ 
+            if (usableWeapons.Contains(item.weaponType))
+            {
 
                 if (!IsWeaponEquipped)
                 {
@@ -93,10 +96,9 @@ namespace Assignment1
             }
             else
             {
-                //Throw InvalidWeaponException
-                return;
+                throw new InvalidWeaponException();
             }
-            
+
         }
         //Checks if a weapon is equipped. Sets EquippedWeapon to null if a weapon is equipped.
         public void UnequipWeapon()
@@ -112,8 +114,11 @@ namespace Assignment1
                 IsWeaponEquipped = false;
                 return;
             }
-            Console.WriteLine("No weapon to unequip");
-            return;
+            else
+            {
+                throw new InvalidUnequipException();
+            }
+
         }
         //Increases the level and attributes of the warrior class
         public void LevelUp()
@@ -125,26 +130,34 @@ namespace Assignment1
             Console.WriteLine($"Warrior {this.Name} just leveled up! Current level: {Level}");
         }
         //Gets the primary attribute for this class
-        public int GetPrimaryAttribute()
+        //Gets the primary attribute for this class
+        public double GetPrimaryAttribute()
         {
-            return attributes.Strength;
+            return attributes.Dexterity;
         }
         //Calculates the Character damage as described in Appendix B: 4.1) Total attributes and calculations
         public double CalculateCharacterDamage()
         {
+            double primaryAttribute = GetPrimaryAttribute();
+            double dmgPercent = primaryAttribute / 100;
+            double baseDamage = 1 + (dmgPercent);
+
+            Console.WriteLine("basedamage " + baseDamage + "dmgpercent " + dmgPercent);
             if (IsWeaponEquipped)
             {
-                return EquippedWeapon.GetDPS() * (1 + GetPrimaryAttribute() / 100);
+                return (EquippedWeapon.GetDPS() * baseDamage);
             }
             else
             {
-                return 1 + GetPrimaryAttribute() / 100;
+                return 1 + (primaryAttribute / 100);
             }
         }
 
-        public void PrintAttributes()
+        //Displays character stats by Name, Level, Attributes and Damage
+        public void DisplayStats()
         {
-            Console.WriteLine($"{Name} the {characterClass} has {attributes.Strength} strength, {attributes.Dexterity} dexterity and {attributes.Intelligence} intelligence!");
+            Console.WriteLine($"\nName: {Name} \nClass: {characterClass} \nLevel: {Level} \nStrength: {attributes.Strength} \n" +
+                $"Dexterity: {attributes.Dexterity} \nIntelligence: {attributes.Intelligence} \nDamage: {CalculateCharacterDamage()}\n");
         }
 
     }

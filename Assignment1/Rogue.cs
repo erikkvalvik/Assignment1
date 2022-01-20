@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment1
 {
-    class Rogue: Character, ILevelUp, IEquip
+    class Rogue: Character, ILevelUp, IEquip, ICalculateCharacterDamage
     {
         //sets base attributes attributes[0] = strength, [1] = Dexterity, [2] = Intelligence
         Attributes attributes = new Attributes(2, 6, 1);
@@ -28,11 +28,10 @@ namespace Assignment1
         //Should add specific armor item to an existing item slot.
         public void EquipArmor(Armor item)
         {
-            //Checks if character is high enough level to equip item
+            //Checks if character is high enough level to equip item. Should throw InvalidArmorException if not.
             if (item.itemLevel > this.Level)
             {
-                Console.WriteLine("You are not high enough level to equip this item");
-                return;
+                throw new InvalidArmorException();
             }
             //Checks if armor type matches the characters class armor types. Adds items attributes to characters attributes,
             //adds armor item to equipped items list
@@ -48,7 +47,7 @@ namespace Assignment1
             }
             else
             {
-                Console.WriteLine("Can't use this type of armor");
+                throw new InvalidArmorException();
             }
             return;
 
@@ -66,6 +65,10 @@ namespace Assignment1
                 equippedItems.Remove(item);
                 Console.WriteLine($"Unequipped {item}");
             }
+            else
+            {
+                throw new InvalidUnequipException();
+            }
             return;
         }
         //Checks if weapon is usable for this class. Checks if a weapon is already equipped. 
@@ -74,8 +77,7 @@ namespace Assignment1
         {
             if (item.itemLevel > Level)
             {
-                //Throw exception
-                return;
+                throw new InvalidWeaponException();
             }
             if (usableWeapons.Contains(item.weaponType))
             {
@@ -92,8 +94,7 @@ namespace Assignment1
             }
             else
             {
-                //Throw InvalidWeaponException
-                return;
+                throw new InvalidWeaponException();
             }
             
         }
@@ -111,8 +112,11 @@ namespace Assignment1
                 IsWeaponEquipped = false;
                 return;
             }
-            Console.WriteLine("No weapon to unequip");
-            return;
+            else
+            {
+                throw new InvalidUnequipException();
+            }
+
         }
         //Increases the level and attributes of the rogue class
         public void LevelUp()
@@ -123,10 +127,34 @@ namespace Assignment1
             attributes.Intelligence += 1;
             Console.WriteLine($"Rogue {this.Name} just leveled up! Current level: {Level}");
         }
-
-        public void PrintAttributes()
+        //Gets the primary attribute for this class
+        public double GetPrimaryAttribute()
         {
-            Console.WriteLine($"{Name} the {characterClass} has {attributes.Strength} strength, {attributes.Dexterity} dexterity and {attributes.Intelligence} intelligence!");
+            return attributes.Dexterity;
+        }
+        //Calculates the Character damage as described in Appendix B: 4.1) Total attributes and calculations
+        public double CalculateCharacterDamage()
+        {
+            double primaryAttribute = GetPrimaryAttribute();
+            double dmgPercent = primaryAttribute / 100;
+            double baseDamage = 1 + (dmgPercent);
+            
+            Console.WriteLine("basedamage " + baseDamage + "dmgpercent " + dmgPercent);
+            if (IsWeaponEquipped)
+            {
+                return (EquippedWeapon.GetDPS() * baseDamage);
+            }
+            else
+            {
+                return 1 + (primaryAttribute / 100);
+            }
+        }
+
+        //Displays character stats by Name, Level, Attributes and Damage
+        public void DisplayStats()
+        {
+            Console.WriteLine($"\nName: {Name} \nClass: {characterClass} \nLevel: {Level} \nStrength: {attributes.Strength} \n" +
+                $"Dexterity: {attributes.Dexterity} \nIntelligence: {attributes.Intelligence} \nDamage: {CalculateCharacterDamage()}\n");
         }
     }
 }

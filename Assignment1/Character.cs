@@ -92,4 +92,37 @@ namespace Assignment1
 
 
     }
+    [Serializable]
+    public class InvalidWeaponException: Exception
+    {
+        public override string Message
+        {
+            get
+            {
+                return "You cannot equip this weapon";
+            }
+        }
+    }
+    [Serializable]
+    public class InvalidArmorException: Exception
+    {
+        public override string Message
+        {
+            get
+            {
+                return "You cannot equip this armor";
+            }
+        }
+    }
+    [Serializable]
+    public class InvalidUnequipException: Exception
+    {
+        public override string Message
+        {
+            get
+            {
+                return "Nothing to unequip";
+            }
+        }
+    }
 }

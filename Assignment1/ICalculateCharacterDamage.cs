@@ -8,7 +8,7 @@ namespace Assignment1
 {
     interface ICalculateCharacterDamage
     {
-        public int GetPrimaryAttribute();
+        public double GetPrimaryAttribute();
         public double CalculateCharacterDamage();
     }
 }
